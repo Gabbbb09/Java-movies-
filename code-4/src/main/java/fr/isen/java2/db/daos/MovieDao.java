@@ -48,9 +48,30 @@ public class MovieDao {
 		    
 	
 
-	public List<Movie> listMoviesByGenre(String genreName) {
-		throw new RuntimeException("Method is not yet implemented");
-	}
+	public List<Movie> listMoviesByGenre() {
+	    String query = "SELECT * FROM movie JOIN genre ON movie.genre_id = genre.idgenre WHERE genre.name = 'Comedy'";
+	    List<Movie> moviesByGenre = new ArrayList<>();
+	    try (Connection connection = getDataSource().getConnection();
+	        PreparedStatement statement = connection.prepareStatement(query)) {
+	        try (ResultSet resultSet = statement.executeQuery()) {
+	            while (resultSet.next()) {
+	                Movie movie = new Movie();
+	                movie.setId(resultSet.getInt("idmovie"));
+	                movie.setTitle(resultSet.getString("title"));
+	                movie.setReleaseDate(resultSet.getDate("release_date").toLocalDate());
+	                movie.setGenre(new Genre (resultSet.getInt("genre_id"),resultSet.getString("name")).getId());
+	                movie.setDuration(resultSet.getInt("duration"));
+	                movie.setDirector(resultSet.getString("director"));
+	                movie.setSummary(resultSet.getString("summary"));
+	                    
+	                moviesByGenre.add(movie);
+	              }
+	         }
+	    } catch (SQLException e) {
+	           throw new RuntimeException("Erreur lors de la récupération des films par genre", e);
+	        }
+	      return moviesByGenre;
+	    }
 
 	public Movie addMovie(Movie movie) {
 		throw new RuntimeException("Method is not yet implemented");

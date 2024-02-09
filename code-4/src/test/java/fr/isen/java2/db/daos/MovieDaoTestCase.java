@@ -61,7 +61,7 @@ public class MovieDaoTestCase {
 	 @Test
 	 public void shouldListMoviesByGenre() {
 		// WHEN
-	    List<Movie> movies = movieDao.listMoviesByGenre("Comedy");
+	    List<Movie> movies = movieDao.listMoviesByGenre();
 	    // THEN
 	    assertThat(movies).hasSize(2); // Supposons que les deux films sont associés au genre "Comedy"
 	    assertThat(movies).extracting("id", "title", "releaseDate", "genre", "duration", "director", "summary")
