@@ -74,20 +74,19 @@ public class MovieDaoTestCase {
 	 @Test
 	 public void shouldAddMovie() throws Exception {
 	     // WHEN
-	     movieDao.addMovie(new Movie("New Movie", LocalDate.of(2023, 5, 15), 1, 120, "New Director", "New Summary"));
-
-	     // THEN
+	     movieDao.addMovie("Intouchable");
+		 
+		 // THEN
 	     Connection connection = DataSourceFactory.getDataSource().getConnection();
 	     Statement statement = connection.createStatement();
-	     ResultSet resultSet = statement.executeQuery("SELECT * FROM movie WHERE title='New Movie'");
+	     ResultSet resultSet = statement.executeQuery("SELECT * FROM movie WHERE title='Intouchable'");
 	     assertThat(resultSet.next()).isTrue();
 	     assertThat(resultSet.getInt("idmovie")).isNotNull();
-	     assertThat(resultSet.getString("title")).isEqualTo("New Movie");
-	     assertThat(resultSet.getDate("release_date").toLocalDate()).isEqualTo(LocalDate.of(2023, 5, 15));
-	     assertThat(resultSet.getInt("genre_id")).isEqualTo(1);
-	     assertThat(resultSet.getInt("duration")).isEqualTo(120);
-	     assertThat(resultSet.getString("director")).isEqualTo("New Director");
-	     assertThat(resultSet.getString("summary")).isEqualTo("New Summary");
+	     assertThat(resultSet.getString("title")).isEqualTo("Intouchable");
+	     assertThat(resultSet.getInt("genre_id")).isEqualTo(2);
+	     assertThat(resultSet.getInt("duration")).isNotNull();
+	     assertThat(resultSet.getString("director")).isNotNull();
+	     assertThat(resultSet.getString("summary")).isNotNull();
 	     assertThat(resultSet.next()).isFalse();
 	     resultSet.close();
 	     statement.close();

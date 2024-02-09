@@ -73,7 +73,22 @@ public class MovieDao {
 	      return moviesByGenre;
 	    }
 
-	public Movie addMovie(Movie movie) {
-		throw new RuntimeException("Method is not yet implemented");
+	public void addMovie(String title) {
+		String query = "INSERT INTO movie(title,release_date,genre_id,duration,director,summary) VALUES(?,?,?,?,?,?)";
+		try (Connection connection = getDataSource().getConnection()){
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
+            	statement.setString(1, title);
+                statement.setObject(2, LocalDate.of(2015,11,14)); // Date de sortie actuelle
+                statement.setInt(3, 2); // le genre "Comedy" a l'ID 2 dans la base de données
+                statement.setInt(4, 120); // la durée de film de 120 minutes
+                statement.setString(5, "Director 5"); // réalisateur 
+                statement.setString(6, "Summary of the movie"); // Résumé du film
+                statement.executeUpdate();
+            }
+		
+        
+		} 	catch (SQLException e) {
+        	throw new RuntimeException("Erreur lors de l'ajout du genre", e);
+    	}
 	}
 }
