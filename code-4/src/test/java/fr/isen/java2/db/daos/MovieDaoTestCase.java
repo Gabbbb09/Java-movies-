@@ -58,16 +58,16 @@ public class MovieDaoTestCase {
 		        );
 	    }
 	 
-	 @Test
+	  @Test
 	 public void shouldListMoviesByGenre() {
 		// WHEN
 	    List<Movie> movies = movieDao.listMoviesByGenre();
 	    // THEN
-	    assertThat(movies).hasSize(2); // Supposons que les deux films sont associés au genre "Comedy"
+	    assertThat(movies).hasSize(2); // les deux films sont du genre "Comedy"
 	    assertThat(movies).extracting("id", "title", "releaseDate", "genre", "duration", "director", "summary")
 	    .containsOnly(
-	     tuple(2, "Movie2", LocalDate.of(2023,02,01), 2, 110, "Director2", "Summary2"),
-	     tuple(4, "Movie4", LocalDate.of(2023,04,01), 2, 95, "Director4", "Summary4") );
+	    		tuple(2, "My Title 2", LocalDate.of(2015,11,14), 2, 114, "director 2", "summary of the second movie"),
+	    		tuple(3, "Third title", LocalDate.of(2015, 12, 12), 2, 176, "director 3", "summary of the third movie") );
 	    }
 	
 	 
