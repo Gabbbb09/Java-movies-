@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDate;
 
 import fr.isen.java2.db.entities.Genre;
 import fr.isen.java2.db.entities.Movie;
